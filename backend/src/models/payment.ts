@@ -2,8 +2,9 @@ import { Schema, model } from "mongoose";
 
 const paymentSchema = new Schema({
     paymentId: {
-        type: String,
+        type: Number,
         required: true,
+        unique: true,
     },
     sender: {
         type: String,
@@ -50,7 +51,7 @@ const paymentSchema = new Schema({
         required: true,
     },
     status: {
-        type: Number, // 0: pending, 1: processed, 2: cancelled
+        type: Number, // 0: pending, 1: processed, 2: cancelled, 3: expired
         required: true,
     },
 });
