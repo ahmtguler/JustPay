@@ -13,6 +13,9 @@ contract JustPay is PaymentVerifier, ReentrancyGuard {
     
     constructor(string memory _name, string memory _version) PaymentVerifier(_name, _version) {}
 
+    event PaymentProcessed(LibPayment.Payment payment);
+    event PaymentCanceled(LibPayment.Payment payment);
+
     function processPayment(LibPayment.Payment memory _payment, bytes memory _signature, address _feeReceiver) external nonReentrant {
         _verify(_payment, _signature);
         _markProcessed(_payment);
@@ -22,10 +25,14 @@ contract JustPay is PaymentVerifier, ReentrancyGuard {
         if (_payment.feeAmount > 0) {
             IERC20(_payment.feeToken).safeTransferFrom(_payment.sender, _feeReceiver, _payment.feeAmount);
         }
+
+        emit PaymentProcessed(_payment);
     }
 
     function cancelPayment(LibPayment.Payment memory _payment) external nonReentrant {
-        require(_payment.sender == msg.sender, "JP: invalid sender");
+        require(_payment.sender == msg.sender, "JP: caller is not the sender");
         _markCanceled(_payment);
+
+        emit PaymentCanceled(_payment);
     }
 }
