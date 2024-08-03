@@ -23,7 +23,7 @@ abstract contract PaymentVerifier is EIP712 {
     }
 
     function _markProcessed(LibPayment.Payment memory _payment) internal {
-        require(!_processedPayments[_payment.hash()], "PaymentVerifier: payment is already processed");
+        require(!_processedPayments[_payment.hash()], "PV: payment is already processed");
         _processedPayments[_payment.hash()] = true;
     }
 
@@ -32,27 +32,33 @@ abstract contract PaymentVerifier is EIP712 {
     }
 
     function _markCanceled(LibPayment.Payment memory _payment) internal {
-        require(!_canceledPayments[_payment.hash()], "PaymentVerifier: payment is already canceled");
+        require(!_canceledPayments[_payment.hash()], "PV: payment is already canceled");
         _canceledPayments[_payment.hash()] = true;
     }
 
-    function verify(LibPayment.Payment memory _payment, bytes memory _signature) internal view {
-        require(!isCanceled(_payment), "PaymentVerifier: payment is canceled");
-        bytes32 hash = _payment.hash();
+    function _verify(LibPayment.Payment memory _payment, bytes memory _signature) internal view {
+        require(!isCanceled(_payment), "PV: payment is canceled");
+        require(!isProcessed(_payment), "PV: payment is already processed");
+        require(_payment.executor == address(0) || _payment.executor == msg.sender, "PV: invalid executor");
+        require(_payment.chainId == block.chainid, "PV: invalid chainId");
+        require(_payment.deadline >= block.timestamp, "PV: payment is expired");
+
+        bytes32 _hash = _payment.hash();
         address signer = _payment.sender;
+
         if (_isContract(signer)) {
             require(
                 IERC1271(signer).isValidSignature(
-                    _hashTypedDataV4(hash),
+                    _hashTypedDataV4(_hash),
                     _signature
                 ) == MAGICVALUE,
-                "PaymentVerifier: ERC1271 ticket signature verification error"
+                "PV: ERC1271 ticket signature verification error"
             );
         } else {
-            if (_hashTypedDataV4(hash).recover(_signature) != signer) {
-                revert("PaymentVerifier: ECDSA ticket signature verification error");
+            if (_hashTypedDataV4(_hash).recover(_signature) != signer) {
+                revert("PV: ECDSA ticket signature verification error");
             } else {
-                require(signer != address(0), "PaymentVerifier: Invalid owner");
+                require(signer != address(0), "PV: Invalid owner");
             }
         }
     }
