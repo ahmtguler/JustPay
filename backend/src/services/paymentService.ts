@@ -1,4 +1,5 @@
 import Payment from "../models/payment";
+import verifySignature from "../utils/verifySignature";
 
 export const createPayment = async (
     payment: {
@@ -18,6 +19,24 @@ export const createPayment = async (
     }
 ) => {
     try {
+        const data = {
+            paymentId: payment.paymentId,
+            sender: payment.sender,
+            receiver: payment.receiver,
+            token: payment.token,
+            amount: payment.amount,
+            executer: payment.executer,
+            feeToken: payment.feeToken,
+            feeAmount: payment.feeAmount,
+            chainId: payment.chainId,
+            deadline: payment.deadline,
+            salt: payment.salt,
+            signature: payment.signature,
+        };
+        const isValid = await verifySignature(data);
+        if (!isValid) {
+            throw new Error("Invalid signature");
+        }
         const newPayment = new Payment(payment);
         await newPayment.save();
         return newPayment;

@@ -18,7 +18,6 @@ export async function createPayment(req: Request, res: Response) {
             salt,
             signature,
         } = req.body;
-
         const payment = await paymentService.createPayment({
             paymentId,
             sender,
@@ -34,7 +33,6 @@ export async function createPayment(req: Request, res: Response) {
             signature,
             status: 0,
         });
-
         res.status(201).send(payment);
     } catch (error: any) {
         res.status(400).send(error.message);
@@ -148,7 +146,7 @@ export async function getReceivePaymentsOfUser(req: Request, res: Response) {
     }
 }
 
-export async function getPublicPendingPayments(req: Request, res: Response) {
+export async function getPendingPublicPayments(req: Request, res: Response) {
     try {
         const payments = await paymentService.getPendingPaymentsOfExecuter(NULL_ADDRESS);
         if (payments) {
@@ -161,8 +159,8 @@ export async function getPublicPendingPayments(req: Request, res: Response) {
     }
 }
 
-export async function getPrivatePendingPayments(req: Request, res: Response) {
-    try {
+export async function getPendingPrivatePayments(req: Request, res: Response) {
+try {
         const executer = req.params.executer;
         const payments = await paymentService.getPendingPaymentsOfExecuter(executer);
         if (payments) {

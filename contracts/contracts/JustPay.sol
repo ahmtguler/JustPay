@@ -11,7 +11,7 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 contract JustPay is PaymentVerifier, ReentrancyGuard {
     using SafeERC20 for IERC20;
     
-    constructor(string memory _name, string memory _version) PaymentVerifier(_name, _version) {}
+    constructor() PaymentVerifier("JustPay", "1") {}
 
     event PaymentProcessed(LibPayment.Payment payment);
     event PaymentCanceled(LibPayment.Payment payment);
