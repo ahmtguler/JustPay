@@ -76,3 +76,5 @@ const indexer = async () => {
         new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
     }
 }
+
+export default indexer;

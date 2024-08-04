@@ -38,6 +38,19 @@ export const getLatestBlock = async (chainId: number) => {
     }
 }
 
+export const getChain = async (chainId: number) => {
+    try {
+        const chain = await Chain.findOne({ chainId: chainId });
+        if (!chain) {
+            throw new Error("Chain not found");
+        }
+        return chain;
+    }
+    catch (error: any) {
+        console.error(`Error: ${error.message}`);
+    }
+}
+
 export const getChains = async () => {
     try {
         const chains = await Chain.find();
