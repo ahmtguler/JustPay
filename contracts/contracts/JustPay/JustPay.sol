@@ -3,12 +3,13 @@
 pragma solidity 0.8.26;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IJustPay} from "./IJustPay.sol";
 import {LibPayment} from "./LibPayment.sol";
 import {PaymentVerifier} from "./PaymentVerifier.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract JustPay is PaymentVerifier, ReentrancyGuard {
+contract JustPay is PaymentVerifier, ReentrancyGuard, IJustPay {
     using SafeERC20 for IERC20;
     
     constructor() PaymentVerifier("JustPay", "1") {}
