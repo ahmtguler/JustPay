@@ -45,6 +45,29 @@ export const createPayment = async (
     }
 };
 
+export const updatePayment = async (
+    paymentId: number,
+    status: number
+) => {
+    try {
+        const filter = { paymentId: paymentId };
+        const update = { status: status };
+        await Payment.findOneAndUpdate(filter, update);
+    } catch (error: any) {
+        console.error(`Error: ${error.message}`);
+    }
+};
+
+export const checkAndUpdateExpiredPayments = async () => {
+    try {
+        const filter = { status: 0, deadline: { $lt: Date.now() / 1000 } };
+        const update = { status: 3 };
+        await Payment.updateMany(filter, update);
+    } catch (error: any) {
+        console.error(`Error: ${error.message}`);
+    }
+};
+
 export const getAllPayments = async () => {
     try {
         const payments = await Payment.find();

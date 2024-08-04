@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as paymentService from "../services/paymentService";
-import NULL_ADDRESS from "../utils/nullAddress";
+import NULL_ADDRESS from "../contants/nullAddress";
 
 export async function createPayment(req: Request, res: Response) {
     try {
