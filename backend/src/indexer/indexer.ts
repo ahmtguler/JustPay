@@ -38,6 +38,7 @@ const indexer = async () => {
                     end
                 );
                 for (const event of processedPaymentEvents) {
+                    const txHash = event.transactionHash;
                     const parsedEvent = contract.interface.parseLog(event);
                     if (!parsedEvent) {
                         continue;
@@ -45,7 +46,7 @@ const indexer = async () => {
                     const payment = parsedEvent.args.payment;
                     const paymentId = payment.paymentId.toNumber();
                     const status = 1;
-                    await paymentService.updatePayment(paymentId, status);
+                    await paymentService.updatePayment(paymentId, status, txHash);
                 }
 
                 // Index canceled payments
@@ -55,13 +56,14 @@ const indexer = async () => {
                     end
                 );
                 for (const event of canceledPaymentEvents) {
+                    const txHash = event.transactionHash;
                     const parsedEvent = contract.interface.parseLog(event);
                     if (!parsedEvent) {
                         continue;
                     }
                     const paymentId = parsedEvent.args.paymentId.toNumber();
                     const status = 2;
-                    await paymentService.updatePayment(paymentId, status);
+                    await paymentService.updatePayment(paymentId, status, txHash);
                 }
 
                 // Check and mark expired payments

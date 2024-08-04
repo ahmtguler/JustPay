@@ -47,11 +47,17 @@ export const createPayment = async (
 
 export const updatePayment = async (
     paymentId: number,
-    status: number
+    status: number,
+    txHash?: string
 ) => {
     try {
         const filter = { paymentId: paymentId };
-        const update = { status: status };
+        let update;
+        if (txHash) {
+            update = { status: status, txHash: txHash };
+        } else {
+            update = { status: status };
+        }
         await Payment.findOneAndUpdate(filter, update);
     } catch (error: any) {
         console.error(`Error: ${error.message}`);

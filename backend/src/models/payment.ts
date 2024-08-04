@@ -54,6 +54,9 @@ const paymentSchema = new Schema({
         type: Number, // 0: pending, 1: processed, 2: cancelled, 3: expired
         required: true,
     },
+    txHash: {
+        type: String,
+    },
 });
 
 const Payment = model("Payment", paymentSchema);
