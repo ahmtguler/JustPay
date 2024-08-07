@@ -36,7 +36,7 @@ abstract contract PaymentVerifier is EIP712 {
         _canceledPayments[_payment.hash()] = true;
     }
 
-    function _verify(LibPayment.Payment memory _payment, bytes memory _signature) internal view {
+    function _verify(LibPayment.Payment memory _payment, bytes memory _signature) public view {
         require(!isCanceled(_payment), "PV: payment is canceled");
         require(!isProcessed(_payment), "PV: payment is already processed");
         require(_payment.executor == address(0) || _payment.executor == msg.sender, "PV: invalid executor");
