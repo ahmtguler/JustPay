@@ -6,7 +6,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const startServer = async () => {
+  console.log('Starting server...');
   await connectDB();
+  console.log('Connected to database');
 
   const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {

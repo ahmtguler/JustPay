@@ -10,7 +10,7 @@ export async function createPayment(req: Request, res: Response) {
             receiver,
             token,
             amount,
-            executer,
+            executor,
             feeToken,
             feeAmount,
             chainId,
@@ -24,7 +24,7 @@ export async function createPayment(req: Request, res: Response) {
             receiver,
             token,
             amount,
-            executer,
+            executor,
             feeToken,
             feeAmount,
             chainId,
@@ -148,7 +148,7 @@ export async function getReceivePaymentsOfUser(req: Request, res: Response) {
 
 export async function getPendingPublicPayments(req: Request, res: Response) {
     try {
-        const payments = await paymentService.getPendingPaymentsOfExecuter(NULL_ADDRESS);
+        const payments = await paymentService.getPendingPaymentsOfexecutor(NULL_ADDRESS);
         if (payments) {
             res.status(200).send(payments);
         } else {
@@ -161,8 +161,8 @@ export async function getPendingPublicPayments(req: Request, res: Response) {
 
 export async function getPendingPrivatePayments(req: Request, res: Response) {
 try {
-        const executer = req.params.executer;
-        const payments = await paymentService.getPendingPaymentsOfExecuter(executer);
+        const executor = req.params.executor;
+        const payments = await paymentService.getPendingPaymentsOfexecutor(executor);
         if (payments) {
             res.status(200).send(payments);
         } else {

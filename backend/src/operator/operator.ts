@@ -3,21 +3,19 @@ import * as paymentService from "../services/paymentService";
 import * as chainServices from "../services/chainService";
 import JUSTPAY_ABI from "../contants/justpayAbi";
 import dotenv from "dotenv";
-import e from 'express';
 dotenv.config();
 
 export const operator = async () => {
+    let i = 0;
     while (true) {
         try {
             const pendingPayments = await paymentService.getPendingPayments();
             if (!pendingPayments) {
-                console.log("No pending payments found");
-                new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+                await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
                 continue;
             }
             if (pendingPayments.length === 0) {
-                console.log("No pending payments found");
-                new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+                await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
                 continue;
             }
             for (const payment of pendingPayments) {
@@ -35,7 +33,7 @@ export const operator = async () => {
                     receiver: payment.receiver,
                     token: payment.token,
                     amount: payment.amount,
-                    executer: payment.executer,
+                    executor: payment.executor,
                     feeToken: payment.feeToken,
                     feeAmount: payment.feeAmount,
                     chainId: payment.chainId,

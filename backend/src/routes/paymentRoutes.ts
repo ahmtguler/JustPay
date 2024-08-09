@@ -7,7 +7,7 @@ router.post('/payments', paymentController.createPayment);
 router.get('/payments', paymentController.getAllPayments);
 router.get('/payments/pending', paymentController.getPendingPayments);
 router.get('/payments/pending/public', paymentController.getPendingPublicPayments);
-router.get('/payments/pending/private/:executer', paymentController.getPendingPrivatePayments);
+router.get('/payments/pending/private/:executor', paymentController.getPendingPrivatePayments);
 router.get('/payments/processed', paymentController.getProcessedPayments);
 router.get('/payments/canceled', paymentController.getCanceledPayments);
 router.get('/payments/expired', paymentController.getExpiredPayments);

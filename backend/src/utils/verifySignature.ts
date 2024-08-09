@@ -7,7 +7,7 @@ export const verifySignature = async (
         receiver: string;
         token: string;
         amount: string;
-        executer: string;
+        executor: string;
         feeToken: string;
         feeAmount: string;
         chainId: number;
@@ -31,7 +31,7 @@ export const verifySignature = async (
                 { name: "receiver", type: "address" },
                 { name: "token", type: "address" },
                 { name: "amount", type: "uint256" },
-                { name: "executer", type: "address" },
+                { name: "executor", type: "address" },
                 { name: "feeToken", type: "address" },
                 { name: "feeAmount", type: "uint256" },
                 { name: "chainId", type: "uint256" },
@@ -45,7 +45,7 @@ export const verifySignature = async (
             receiver: data.receiver,
             token: data.token,
             amount: data.amount,
-            executer: data.executer,
+            executor: data.executor,
             feeToken: data.feeToken,
             feeAmount: data.feeAmount,
             chainId: data.chainId,

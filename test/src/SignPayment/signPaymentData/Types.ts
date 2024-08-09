@@ -7,7 +7,7 @@ const types: Record<string, TypedDataField[]> = {
         { name: "receiver", type: "address" },
         { name: "token", type: "address" },
         { name: "amount", type: "uint256" },
-        { name: "executer", type: "address" },
+        { name: "executor", type: "address" },
         { name: "feeToken", type: "address" },
         { name: "feeAmount", type: "uint256" },
         { name: "chainId", type: "uint256" },

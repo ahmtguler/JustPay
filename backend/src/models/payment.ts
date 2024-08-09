@@ -22,7 +22,7 @@ const paymentSchema = new Schema({
         type: String,
         required: true,
     },
-    executer: {
+    executor: {
         type: String,
         required: true,
     },

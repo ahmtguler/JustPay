@@ -1,4 +1,3 @@
-import { JustPay } from './../../typechain-types/contracts/JustPay';
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
 const JustPayModule = buildModule("JustPay", (m) => {

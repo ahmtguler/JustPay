@@ -8,7 +8,7 @@ export const createPayment = async (
         receiver: string;
         token: string;
         amount: string;
-        executer: string;
+        executor: string;
         feeToken: string;
         feeAmount: string;
         chainId: number;
@@ -25,7 +25,7 @@ export const createPayment = async (
             receiver: payment.receiver,
             token: payment.token,
             amount: payment.amount,
-            executer: payment.executer,
+            executor: payment.executor,
             feeToken: payment.feeToken,
             feeAmount: payment.feeAmount,
             chainId: payment.chainId,
@@ -153,9 +153,9 @@ export const getReceivePaymentsOfUser = async (user: string) => {
     }
 };
 
-export const getPendingPaymentsOfExecuter = async (executer: string) => {
+export const getPendingPaymentsOfexecutor = async (executor: string) => {
     try {
-        const filter = { status: 0, executer: executer };
+        const filter = { status: 0, executor: executor };
         const payments = await Payment.find(filter);
         return payments;
     } catch (error: any) {
