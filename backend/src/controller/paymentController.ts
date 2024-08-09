@@ -33,6 +33,9 @@ export async function createPayment(req: Request, res: Response) {
             signature,
             status: 0,
         });
+        if (payment instanceof Error) {
+            res.status(400).send(payment.message);
+        }
         res.status(201).send(payment);
     } catch (error: any) {
         res.status(400).send(error.message);

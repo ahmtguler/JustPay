@@ -12,7 +12,7 @@ const types: Record<string, TypedDataField[]> = {
         { name: "feeAmount", type: "uint256" },
         { name: "chainId", type: "uint256" },
         { name: "deadline", type: "uint256" },
-        { name: "salt", type: "bytes32" },
+        { name: "salt", type: "uint256" },
     ],
 };
 

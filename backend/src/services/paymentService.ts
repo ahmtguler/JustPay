@@ -35,7 +35,7 @@ export const createPayment = async (
         };
         const isValid = await verifySignature(data);
         if (!isValid) {
-            throw new Error("Invalid signature");
+            return Error("Invalid signature");
         }
         const newPayment = new Payment(payment);
         await newPayment.save();

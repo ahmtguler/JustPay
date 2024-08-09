@@ -18,7 +18,7 @@ const types: Record<string, TypedDataField[]> = {
         { name: "feeAmount", type: "uint256" },
         { name: "chainId", type: "uint256" },
         { name: "deadline", type: "uint256" },
-        { name: "salt", type: "bytes32" },
+        { name: "salt", type: "uint256" },
     ],
 };
 
@@ -55,7 +55,7 @@ describe("JustPay", function () {
         const tokenAddress = await token.getAddress();
 
         const domainData = domain(chainId, justPayAddress);
-        const salt = randomBytes(32);
+        const salt = randomBytes(32); //! deprecated salt changed to uint256
         const payment = {
             paymentId: 1,
             sender: signer.address,

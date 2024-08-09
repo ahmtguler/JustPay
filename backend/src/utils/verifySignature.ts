@@ -18,6 +18,9 @@ export const verifySignature = async (
 ) => {
     try {
         const verifyingContract = getVerifyingContract(data.chainId);
+        if (verifyingContract instanceof Error) {
+            return verifyingContract;
+        }
         const domain: TypedDataDomain = {
             name: "JustPay",
             version: "1",
@@ -36,7 +39,7 @@ export const verifySignature = async (
                 { name: "feeAmount", type: "uint256" },
                 { name: "chainId", type: "uint256" },
                 { name: "deadline", type: "uint256" },
-                { name: "salt", type: "bytes32" },
+                { name: "salt", type: "uint256" },
             ],
         };
         const payment = {
@@ -63,11 +66,11 @@ export const verifySignature = async (
 };
 
 function getVerifyingContract(chaindId: number) {
-    if (chaindId === 84532) { 
-        // Base Sepolia
-        return "0x0000000000000000000000000000000000000000"; //todo add the address of the contract after deployment
+    if (chaindId === 31337) { 
+        // localhost
+        return "0x5FbDB2315678afecb367f032d93F642f64180aa3"; //todo add the address of the contract after deployment
     } else {
-        throw new Error("Invalid chainId");
+        return Error("Invalid chainId");
     }
 }
 
