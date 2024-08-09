@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import NULL_ADDRESS from './utils/constants/nullAddress'
+import types from './SignPayment/signPaymentData/Types'
+import getDomain from './SignPayment/signPaymentData/Domain'
+import { randomBytes } from 'ethers'
+import { useWalletClient } from 'wagmi'
+import { signTypedData } from 'viem'
 
-function App() {
-  const [count, setCount] = useState(0)
+async function App() {
+  const wallet = useWalletClient();
+  const salt = randomBytes(32);
+  const message = {
+    paymentId: 123456,
+    sender: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+    recipient: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+    token: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+    amount: 100,
+    executor: NULL_ADDRESS,
+    feeToken: NULL_ADDRESS,
+    fee: 0,
+    chainId: 31337,
+    deadline: Date.now() / 1000 + 60 * 60,
+    salt: salt,
+  }
+  const domain = getDomain(31337);
 
+  const signature = await wallet.signTypedData(domain, types, 'Payment', message);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <w3m-button/>
     </>
   )
 }

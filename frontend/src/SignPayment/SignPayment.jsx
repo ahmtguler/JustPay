@@ -1,9 +1,10 @@
-import { useSignTypedData } from 'wagmi'
 import getDomain from './signPaymentData/Domain'
 import types from './signPaymentData/Types'
 import NULL_ADDRESS from '../utils/constants/nullAddress'
 import { randomBytes } from 'ethers'
- 
+
+import { useWallet
+  import { mainnet } from 'viem/chains'
 function SignPayment() {
   const salt = randomBytes(32)
   const message = {
@@ -21,16 +22,7 @@ function SignPayment() {
   }
   const domain = getDomain(31337);
 
-  const { data, isError, error, isSuccess, signTypedData } =
-    useSignTypedData({
-      domain,
-      message,
-      primaryType: 'Payment',
-      types,
-    })
-  console.log('data', data)
-  console.log('isError', isError)
-  console.log('error', error)
+  
     
   return (
     <div>
