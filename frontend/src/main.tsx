@@ -15,13 +15,46 @@ const hardhat = {
   rpcUrl: 'http://127.0.0.1:8545/'
 }
 
-const ethereum = {
-  chainId: 1,
-  name: 'Ethereum',
+const base = {
+  chainId: 8453,
+  name: 'Base',
   currency: 'ETH',
-  explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'https://eth.llamarpc.com'
+  explorerUrl: 'https://base.blockscout.com',
+  rpcUrl: 'https://base-mainnet.public.blastapi.io'
 }
+
+const baseSepolia = {
+  chainId: 84532,
+  name: 'Base Sepolia',
+  currency: 'ETH',
+  explorerUrl: 'https://base-sepolia.blockscout.com',
+  rpcUrl: 'https://base-sepolia-rpc.publicnode.com'
+}
+
+const metalL2 = {
+  chainId: 1750,
+  name: 'Metal L2',
+  currency: 'ETH',
+  explorerUrl: 'https://explorer.metall2.com',
+  rpcUrl: 'https://rpc.metall2.com'
+}
+
+const celo = {
+  chainId: 42220,
+  name: 'Celo',
+  currency: 'ETH',
+  explorerUrl: 'https://explorer.celo.org/mainnet',
+  rpcUrl: 'https://rpc.ankr.com/celo'
+}
+
+const mode = {
+  chainId: 34443,
+  name: 'Mode',
+  currency: 'ETH',
+  explorerUrl: 'https://modescan.io',
+  rpcUrl: 'https://mainnet.mode.network'
+}
+
 
 const metadata = {
   name: 'justpay',
@@ -36,7 +69,7 @@ const ethersConfig = defaultConfig({
 
 createWeb3Modal({
   ethersConfig,
-  chains: [hardhat, ethereum],
+  chains: [hardhat, base, baseSepolia, metalL2, celo, mode],
   projectId,
 })
 

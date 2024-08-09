@@ -17,6 +17,30 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
+    base: {
+      url: "https://base-mainnet.public.blastapi.io",
+      accounts: [
+        process.env.PV_KEY as string,
+      ],
+    },
+    metalL2: {
+      url: "https://rpc.metall2.com",
+      accounts: [
+        process.env.PV_KEY as string,
+      ],
+    },
+    celo: {
+      url: "https://rpc.ankr.com/celo",
+      accounts: [
+        process.env.PV_KEY as string,
+      ],
+    },
+    mode: {
+      url: "https://mainnet.mode.network",
+      accounts: [
+        process.env.PV_KEY as string,
+      ],
+    },
     baseSepolia: {
       url: "https://base-sepolia-rpc.publicnode.com",
       accounts: [
