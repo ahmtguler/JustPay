@@ -13,7 +13,7 @@ function getDomain(chainId: number) {
 function getVerifyingContract(chaindId: number) {
     if (chaindId === 31337) {
         // hardhat
-        return "0x5fbdb2315678afecb367f032d93f642f64180aa3"; //todo add the address of the contract after deployment
+        return "0x5FbDB2315678afecb367f032d93F642f64180aa3"; //todo add the address of the contract after deployment
     } else {
         throw new Error("Invalid chainId");
     }
