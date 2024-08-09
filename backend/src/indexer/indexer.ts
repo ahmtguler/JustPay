@@ -15,15 +15,14 @@ const indexer = async () => {
             const chains = await chainServices.getChains();
             if (!chains) {
                 console.log("No chains found");
-                new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+                await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
                 continue;
             }
             for (const chain of chains) {
                 const lastestBlock = await chainServices.getLatestBlock(chain.chainId) as number;
                 const lastIndexedBlock = chain.lastIndexedBlock;
                 const blockConfirmations = chain.blockConfirmations;
-                if (lastIndexedBlock > lastestBlock - blockConfirmations) {
-                    console.log(`Chain ${chain.chainId} is up to date`);
+                if (lastIndexedBlock >= lastestBlock - blockConfirmations) {
                     continue;
                 }
                 // Index blocks
@@ -40,11 +39,12 @@ const indexer = async () => {
                 for (const event of processedPaymentEvents) {
                     const txHash = event.transactionHash;
                     const parsedEvent = contract.interface.parseLog(event);
+                    console.log('parsedEvent', parsedEvent);
                     if (!parsedEvent) {
                         continue;
                     }
                     const payment = parsedEvent.args.payment;
-                    const paymentId = payment.paymentId.toNumber();
+                    const paymentId = Number(payment[0]);
                     const status = 1;
                     await paymentService.updatePayment(paymentId, status, txHash);
                 }
@@ -61,7 +61,8 @@ const indexer = async () => {
                     if (!parsedEvent) {
                         continue;
                     }
-                    const paymentId = parsedEvent.args.paymentId.toNumber();
+                    const payment = parsedEvent.args.payment;
+                    const paymentId = Number(payment[0]);
                     const status = 2;
                     await paymentService.updatePayment(paymentId, status, txHash);
                 }
@@ -75,7 +76,7 @@ const indexer = async () => {
         } catch (error: any) {
             console.error(`Error: ${error.message}`);
         }
-        new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+        await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
     }
 }
 

@@ -25,6 +25,9 @@ function SignPayment(
   }
 ) {
   const [allowance, setAllowance] = useState(0n)
+  const [txHash, setTxHash] = useState('')
+  const [status, setStatus] = useState(0)
+  const [realPaymentId, setRealPaymentId] = useState(0)
   const { isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
   const t = performance.now();
@@ -32,10 +35,25 @@ function SignPayment(
   const rndm = Math.abs(a ^ Math.floor(Math.random() * 0x100000000));
   const salt = generateSalt();
   // const salt = randomBytes(32)
+  const domain = getDomain(chainId);
 
   useEffect(() => {
     allowanceCheck()
+    // balanceCheck()
   })
+
+  useEffect(() => {
+    if (status !== 1) {
+      return;
+    }
+    if (txHash !== '') {
+      return;
+    }
+    const intervalId = setInterval(() => {
+      fetchStatus(realPaymentId)
+    }, 1000 * 3)
+    return () => clearInterval(intervalId)
+  }, [status, realPaymentId, txHash])
 
   async function allowanceCheck() {
     if (!isConnected) {
@@ -48,9 +66,23 @@ function SignPayment(
     const signer = await ethersProvider.getSigner()
     const sender = await signer.getAddress()
     const contract = new Contract(token, ['function allowance(address,address) external view returns (uint256)'], signer)
-    const allowance = await contract.allowance(sender, receiver)
+    const allowance = await contract.allowance(sender, domain.verifyingContract);
     setAllowance(allowance)
   }
+
+  // async function balanceCheck() {
+  //   if (!isConnected) {
+  //     return;
+  //   }
+  //   if (!walletProvider) {
+  //     return;
+  //   }
+  //   const ethersProvider = new BrowserProvider(walletProvider)
+  //   const signer = await ethersProvider.getSigner()
+  //   const contract = new Contract(token, ['function balanceOf(address) external view returns (uint256)'], signer)
+  //   const address = await signer.getAddress()
+  //   const balance = await contract.balanceOf(address)
+  // }
 
   async function approve() {
     if (!isConnected) {
@@ -64,12 +96,22 @@ function SignPayment(
     const ethersProvider = new BrowserProvider(walletProvider)
     const signer = await ethersProvider.getSigner()
     const contract = new Contract(token, ['function approve(address,uint256) external'], signer)
-    const tx = await contract.approve(receiver, parseEther("0.01"));
+    const tx = await contract.approve(domain.verifyingContract, parseEther("0.01"));
     await tx.wait()
     toast.success('Approved successfully')
   }
+
+  async function fetchStatus(paymentId: number) {
+    console.log('fetchStatus', paymentId)
+    await axios.get(`${apiUrl}/payments/${paymentId}`).then((res) => {
+      if (res.status === 200) {
+        setTxHash(res.data.txHash)
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
   
-  const domain = getDomain(chainId);
 
   async function sign() {
     if (!isConnected) {
@@ -116,7 +158,9 @@ function SignPayment(
     }
     ).then((res) => {
       if (res.status === 201) {
+        setRealPaymentId(message.paymentId)
         toast.success('Payment signed successfully');
+        setStatus(1)
       }
     }).catch((error) => {
       if (error.response) {
@@ -136,6 +180,18 @@ function SignPayment(
           <Button onClick={sign}>
             {name}
           </Button>
+      }
+      
+      { 
+      
+        txHash !== ''?
+          <div>
+            <p>Transaction Hash: {txHash}</p>
+          </div>
+          : status === 1 && txHash === '' ?
+          <div>
+            <p>Processing...</p>
+          </div> : null
       }
       {/* <Button onClick={sign}>
         {name}

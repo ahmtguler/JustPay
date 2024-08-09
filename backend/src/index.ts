@@ -15,8 +15,10 @@ const startServer = async () => {
     console.log(`Server is running on port ${PORT}`);
   });
 
-  // indexer();
-  // operator();
+  operator();
+  console.log('Operator started');
+  indexer();
+  console.log('Indexer started');
 };
 
 startServer();

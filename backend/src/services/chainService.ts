@@ -9,15 +9,18 @@ export const initChains = async () => {
         const chains = await Chain.find();
         if (chains.length === 0) {
             // Base Sepolia
-            const lastIndexedBlock = await getLatestBlock(84532); //todo logic error cannot get latest block without initing chains
+            // const lastIndexedBlock = await getLatestBlock(84532); //todo logic error cannot get latest block without initing chains
+            console.log("Initializing chains...");
             const chain = new Chain({
-                chainId: 84532,
+                chainId: 31337,
                 contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //todo: add contract address after deployment
                 rpcUrl: process.env.BASE_SEPOLIA_RPC_URL as string,
                 lastIndexedBlock: 0,
                 blockConfirmations: 0,
             });
+            console.log("Saving chain...");
             await chain.save();
+            console.log("Chain saved");
         }
     } catch (error: any) {
         console.error(`Error: ${error.message}`);
