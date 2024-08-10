@@ -5,20 +5,24 @@ import operator from './operator/operator';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const startServer = async () => {
-  console.log('Starting server...');
-  await connectDB();
-  console.log('Connected to database');
+// const startServer = async () => {
+//   console.log('Starting server...');
+//   await connectDB();
+//   console.log('Connected to database');
 
-  const PORT = process.env.PORT || 8080;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+//   const PORT = process.env.PORT || 8080;
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+//   });
 
-  operator();
-  console.log('Operator started');
-  // indexer();
-  // console.log('Indexer started');
-};
+//   operator();
+//   console.log('Operator started');
+//   // indexer();
+//   // console.log('Indexer started');
+// };
 
-startServer();
+// startServer();
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
