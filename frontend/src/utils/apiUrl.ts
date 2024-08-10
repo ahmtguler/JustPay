@@ -1,3 +1,3 @@
-const apiUrl = 'http://localhost:8080/api';
+const apiUrl = 'https://just-pay-hznx.vercel.app/api';
 
 export default apiUrl;
