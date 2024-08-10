@@ -51,7 +51,7 @@ const paymentSchema = new Schema({
         required: true,
     },
     status: {
-        type: Number, // 0: pending, 1: processed, 2: cancelled, 3: expired
+        type: Number, // 0: pending, 1: processed, 2: cancelled, 3: expired 4: to be indexed
         required: true,
     },
     txHash: {

@@ -52,7 +52,7 @@ export const operator = async () => {
                 // const balance = await ERC20Contract.balanceOf(payment.sender);
                 // const allwance = await ERC20Contract.allowance(payment.sender, chain.contractAddress);
                 try {
-                    await contract.processPayment(
+                    const tx = await contract.processPayment(
                         paymentStruct,
                         signature,
                         feeReceiver
@@ -62,7 +62,7 @@ export const operator = async () => {
                     //     console.error("Transaction hash not found");
                     //     continue;
                     // }
-                    // await paymentService.updatePayment(payment.paymentId, 1, tx.hash);
+                    await paymentService.updatePayment(payment.paymentId, 4, tx.hash);
                 } catch (error: any) {
                     console.error(`Error: ${error.message}`);
                     continue;

@@ -8,19 +8,17 @@ export const initChains = async () => {
     try {
         const chains = await Chain.find();
         if (chains.length === 0) {
-            // Base Sepolia
-            // const lastIndexedBlock = await getLatestBlock(84532); //todo logic error cannot get latest block without initing chains
             console.log("Initializing chains...");
 
-            const hardhat = new Chain({
-                chainId: 31337,
-                contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //todo: add contract address after deployment
-                rpcUrl: process.env.LOCAL_RPC_URL as string,
-                lastIndexedBlock: 0, //todo: change to lastIndexedBlock
-                blockConfirmations: 0,
-            });
-            console.log("Saving hardhat chain...");
-            await hardhat.save();
+            // const hardhat = new Chain({
+            //     chainId: 31337,
+            //     contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //todo: add contract address after deployment
+            //     rpcUrl: process.env.LOCAL_RPC_URL as string,
+            //     lastIndexedBlock: 0, //todo: change to lastIndexedBlock
+            //     blockConfirmations: 0,
+            // });
+            // console.log("Saving hardhat chain...");
+            // await hardhat.save();
 
             // // Base Mainnet
             // const baseMainnet = new Chain({
@@ -34,16 +32,16 @@ export const initChains = async () => {
             // await baseMainnet.save();
 
 
-            // // Base Testnet
-            // const baseTestnet = new Chain({
-            //     chainId: 84532,
-            //     contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //todo: add contract address after deployment
-            //     rpcUrl: process.env.BASE_TESTNET_RPC_URL as string,
-            //     lastIndexedBlock: 0, //todo: change to lastIndexedBlock
-            //     blockConfirmations: 0,
-            // });
-            // console.log("Saving baseTestnet chain...");
-            // await baseTestnet.save();
+            // Base Sepolia
+            const baseTestnet = new Chain({
+                chainId: 84532,
+                contractAddress: "0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0",
+                rpcUrl: process.env.BASE_TESTNET_RPC_URL as string,
+                lastIndexedBlock: 13741189,
+                blockConfirmations: 0,
+            });
+            console.log("Saving baseTestnet chain...");
+            await baseTestnet.save();
 
             // // Metal L2
             // const metalL2 = new Chain({

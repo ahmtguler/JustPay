@@ -17,8 +17,8 @@ const startServer = async () => {
 
   operator();
   console.log('Operator started');
-  indexer();
-  console.log('Indexer started');
+  // indexer();
+  // console.log('Indexer started');
 };
 
 startServer();

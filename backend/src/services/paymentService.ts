@@ -32,6 +32,7 @@ export const createPayment = async (
             deadline: payment.deadline,
             salt: payment.salt,
             signature: payment.signature,
+            txHash: "",
         };
         const isValid = await verifySignature(data);
         if (!isValid) {

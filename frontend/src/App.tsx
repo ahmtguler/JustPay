@@ -14,61 +14,27 @@ function App() {
       >
         <Space
           direction='vertical'
+        > 
+        <Flex
+          justify='center'
+          align='center'
+          vertical={true}
         >
-          <w3m-button />
-          <Flex
-          >
-            <Space>
 
+          <w3m-button/>
+            <Space>
             <Card
-              title='Send Token'
+              title='Send WETH'
               size='small'
+              style={{ width: 500 }}
               >
               <SignPayment
-                receiver={'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'}
-                token={'0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'}
-                amount={100n}
-                chainId={31337}
-                name='Transfer'
-                />
-            </Card>
-            <Card
-              title='Mint NFT'
-              size='small'
-              >
-              <SignPayment
-                receiver={'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'}
-                token={'0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'}
-                amount={100n}
-                chainId={31337}
-                name='Transfer'
-                />
-            </Card>
-            <Card
-              title='Swap'
-              size='small'
-              >
-              <SignPayment
-                receiver={'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'}
-                token={'0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'}
-                amount={100n}
-                chainId={31337}
-                name='Transfer'
-                />
-            </Card>
-            <Card
-              size='small'
-              >
-              <SignPayment
-                receiver={'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'}
-                token={'0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'}
-                amount={100n}
-                chainId={31337}
-                name='Transfer'
+                token={'0x4200000000000000000000000000000000000006'}
+                name='Transfer WETH'
                 />
             </Card>
                 </Space>
-          </Flex>
+                </Flex>
         </Space>
       </Flex>
     </div>
