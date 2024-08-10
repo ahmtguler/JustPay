@@ -24,7 +24,7 @@ function App() {
           <w3m-button/>
             <Space>
             <Card
-              title='Send WETH'
+              title='Send 0.00001 WETH'
               size='small'
               style={{ width: 500 }}
               >
