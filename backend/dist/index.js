@@ -1,26 +1,33 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const database_1 = __importDefault(require("./config/database"));
 const app_1 = __importDefault(require("./app"));
+const operator_1 = __importDefault(require("./operator/operator"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-// const startServer = async () => {
-//   console.log('Starting server...');
-//   await connectDB();
-//   console.log('Connected to database');
-//   const PORT = process.env.PORT || 8080;
-//   app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-//   });
-//   operator();
-//   console.log('Operator started');
-//   // indexer();
-//   // console.log('Indexer started');
-// };
-// startServer();
-const PORT = process.env.PORT || 8080;
-app_1.default.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Starting server...');
+    yield (0, database_1.default)();
+    console.log('Connected to database');
+    const PORT = process.env.PORT || 8080;
+    app_1.default.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+    (0, operator_1.default)();
+    console.log('Operator started');
+    // indexer();
+    // console.log('Indexer started');
 });
+startServer();
