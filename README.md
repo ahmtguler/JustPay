@@ -9,3 +9,14 @@ The backend, developed in TypeScript, includes an API to store and manage paymen
 For contract verification and transaction tracking, Blockscout is used, ensuring transparency and accuracy throughout the process. The system can be implemented by any interface supporting typed data signatures, such as the Warpcast app or any wallet application, providing a versatile solution that works across various use cases.
 
 By enabling seamless ERC20 payments for both EOAs and smart accounts, this payment system solves the challenges of transaction speed and flexibility. It eliminates the need for complex account setups, offering a secure and adaptable solution for any application requiring efficient and customizable token transfers.
+
+Contract Addresses
+
+Base: 0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0
+https://base.blockscout.com/address/0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0?tab=contract
+
+Metal L2: 0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0
+https://explorer.metall2.com/address/0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0?tab=contract
+
+Base Sepolia: 0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0
+https://base-sepolia.blockscout.com/address/0x96F6C144321d22E9D7aE9788DA2484202b8bEFF0?tab=contract
