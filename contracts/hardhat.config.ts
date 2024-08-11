@@ -30,18 +30,6 @@ const config: HardhatUserConfig = {
         process.env.PV_KEY as string,
       ],
     },
-    celo: {
-      url: "https://rpc.ankr.com/celo",
-      accounts: [
-        process.env.PV_KEY as string,
-      ],
-    },
-    mode: {
-      url: "https://mainnet.mode.network",
-      accounts: [
-        process.env.PV_KEY as string,
-      ],
-    },
     baseSepolia: {
       url: "https://base-sepolia-rpc.publicnode.com",
       accounts: [
@@ -51,10 +39,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      base: process.env.ETHERSCAN_API_KEY as string,
-      metalL2: process.env.ETHERSCAN_API_KEY as string,
-      celo: process.env.ETHERSCAN_API_KEY as string,
-      mode: process.env.ETHERSCAN_API_KEY as string,
+      base: "abc",
+      metalL2: "abc",
       baseSepolia: "abc",
     },
     customChains: [
@@ -72,22 +58,6 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://explorer.metall2.com/api",
           browserURL: "https://explorer.metall2.com/",
-        }
-      },
-      {
-        network: "celo",
-        chainId: 42220,
-        urls: {
-          apiURL: "https://explorer.celo.org/mainnet/api",
-          browserURL: "https://explorer.celo.org/mainnet/",
-        }
-      },
-      {
-        network: "mode",
-        chainId: 34443,
-        urls: {
-          apiURL: "https://modescan.io/api",
-          browserURL: "https://modescan.io/",
         }
       },
       {

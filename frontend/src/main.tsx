@@ -7,14 +7,6 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 
 const projectId = '369c53f64a6a4431f17f2b305bfcff0c'
 
-const hardhat = {
-  chainId: 31337,
-  name: 'Hardhat',
-  currency: 'ETH',
-  explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'http://127.0.0.1:8545/'
-}
-
 const base = {
   chainId: 8453,
   name: 'Base',
@@ -39,23 +31,6 @@ const metalL2 = {
   rpcUrl: 'https://rpc.metall2.com'
 }
 
-const celo = {
-  chainId: 42220,
-  name: 'Celo',
-  currency: 'ETH',
-  explorerUrl: 'https://explorer.celo.org/mainnet',
-  rpcUrl: 'https://rpc.ankr.com/celo'
-}
-
-const mode = {
-  chainId: 34443,
-  name: 'Mode',
-  currency: 'ETH',
-  explorerUrl: 'https://modescan.io',
-  rpcUrl: 'https://mainnet.mode.network'
-}
-
-
 const metadata = {
   name: 'justpay',
   description: 'AppKit Example',
@@ -69,7 +44,7 @@ const ethersConfig = defaultConfig({
 
 createWeb3Modal({
   ethersConfig,
-  chains: [hardhat, base, baseSepolia, metalL2, celo, mode],
+  chains: [base, baseSepolia, metalL2],
   projectId,
 })
 

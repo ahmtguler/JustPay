@@ -35,17 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPayment = createPayment;
-exports.getAllPayments = getAllPayments;
-exports.getPendingPayments = getPendingPayments;
-exports.getProcessedPayments = getProcessedPayments;
-exports.getCanceledPayments = getCanceledPayments;
-exports.getExpiredPayments = getExpiredPayments;
-exports.getPaymentById = getPaymentById;
-exports.getSendPaymentsOfUser = getSendPaymentsOfUser;
-exports.getReceivePaymentsOfUser = getReceivePaymentsOfUser;
-exports.getPendingPublicPayments = getPendingPublicPayments;
-exports.getPendingPrivatePayments = getPendingPrivatePayments;
+exports.getPendingPrivatePayments = exports.getPendingPublicPayments = exports.getReceivePaymentsOfUser = exports.getSendPaymentsOfUser = exports.getPaymentById = exports.getExpiredPayments = exports.getCanceledPayments = exports.getProcessedPayments = exports.getPendingPayments = exports.getAllPayments = exports.createPayment = void 0;
 const paymentService = __importStar(require("../services/paymentService"));
 const nullAddress_1 = __importDefault(require("../contants/nullAddress"));
 function createPayment(req, res) {
@@ -77,6 +67,7 @@ function createPayment(req, res) {
         }
     });
 }
+exports.createPayment = createPayment;
 function getAllPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -93,6 +84,7 @@ function getAllPayments(req, res) {
         }
     });
 }
+exports.getAllPayments = getAllPayments;
 function getPendingPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -109,6 +101,7 @@ function getPendingPayments(req, res) {
         }
     });
 }
+exports.getPendingPayments = getPendingPayments;
 function getProcessedPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -125,6 +118,7 @@ function getProcessedPayments(req, res) {
         }
     });
 }
+exports.getProcessedPayments = getProcessedPayments;
 function getCanceledPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -141,6 +135,7 @@ function getCanceledPayments(req, res) {
         }
     });
 }
+exports.getCanceledPayments = getCanceledPayments;
 function getExpiredPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -157,6 +152,7 @@ function getExpiredPayments(req, res) {
         }
     });
 }
+exports.getExpiredPayments = getExpiredPayments;
 function getPaymentById(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -174,6 +170,7 @@ function getPaymentById(req, res) {
         }
     });
 }
+exports.getPaymentById = getPaymentById;
 function getSendPaymentsOfUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -191,6 +188,7 @@ function getSendPaymentsOfUser(req, res) {
         }
     });
 }
+exports.getSendPaymentsOfUser = getSendPaymentsOfUser;
 function getReceivePaymentsOfUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -208,6 +206,7 @@ function getReceivePaymentsOfUser(req, res) {
         }
     });
 }
+exports.getReceivePaymentsOfUser = getReceivePaymentsOfUser;
 function getPendingPublicPayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -224,6 +223,7 @@ function getPendingPublicPayments(req, res) {
         }
     });
 }
+exports.getPendingPublicPayments = getPendingPublicPayments;
 function getPendingPrivatePayments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -241,3 +241,4 @@ function getPendingPrivatePayments(req, res) {
         }
     });
 }
+exports.getPendingPrivatePayments = getPendingPrivatePayments;
