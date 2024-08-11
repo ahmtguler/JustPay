@@ -44,13 +44,6 @@ export const operator = async () => {
                 const signature = payment.signature;
                 const feeReceiver = process.env.FEE_RECEIVER as string;
                 console.log(`Processing payment ${payment.paymentId}...`);
-                // const ERC20Contract = new Contract(payment.token, 
-                //     [
-                //         'function balanceOf(address) external view returns (uint256)',
-                //         'function allowance(address, address) external view returns (uint256)'
-                //     ], wallet);
-                // const balance = await ERC20Contract.balanceOf(payment.sender);
-                // const allwance = await ERC20Contract.allowance(payment.sender, chain.contractAddress);
                 try {
                     const tx = await contract.processPayment(
                         paymentStruct,
@@ -58,10 +51,6 @@ export const operator = async () => {
                         feeReceiver
                     );
                     console.log(`Payment ${payment.paymentId} processed`);
-                    // if (!tx.hash) {
-                    //     console.error("Transaction hash not found");
-                    //     continue;
-                    // }
                     await paymentService.updatePayment(payment.paymentId, 4, tx.hash);
                 } catch (error: any) {
                     console.error(`Error: ${error.message}`);
