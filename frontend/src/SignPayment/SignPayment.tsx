@@ -33,7 +33,10 @@ function SignPayment(
   const rndm = Math.abs(a ^ Math.floor(Math.random() * 0x100000000));
   const salt = generateSalt();
   const domain = getDomain(chainId); // invalid chainId error
-  const explorer = domain.chainId === 8453 ? 'https://base.blockscout.com/tx/' : domain.chainId === 84532 ? 'https://base-sepolia.blockscout.com/tx/' : ""
+  const explorer = 
+    domain.chainId === 8453 ? 'https://base.blockscout.com/tx/' : 
+    domain.chainId === 84532 ? 'https://base-sepolia.blockscout.com/tx/' :
+    domain.chainId === 1750 ? 'https://explorer.metall2.com/tx/' : ""
 
   useEffect(() => {
     allowanceCheck()
