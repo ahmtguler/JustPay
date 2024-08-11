@@ -86,6 +86,7 @@ function SignPayment(
     const tx = await contract.approve(domain.verifyingContract, parseEther("0.0001"));
     await tx.wait()
     toast.success('Approved successfully')
+    allowanceCheck()
   }
 
   async function fetchStatus(paymentId: number) {
