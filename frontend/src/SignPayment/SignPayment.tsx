@@ -20,6 +20,7 @@ function SignPayment(
   const { Text, Link } = Typography;
 
   const [allowance, setAllowance] = useState(0n)
+  const [balance, setBalance] = useState(0n)
   const [receiver, setReceiver] = useState('')
   const [txHash, setTxHash] = useState('')
   const [status, setStatus] = useState(0)
@@ -39,9 +40,9 @@ function SignPayment(
     domain.chainId === 1750 ? 'https://explorer.metall2.com/tx/' : ""
 
   useEffect(() => {
-    allowanceCheck()
-    // balanceCheck()
-  })
+  allowanceCheck()
+   balanceCheck()
+  }, [isConnected, walletProvider])
 
   useEffect(() => {
     if (status !== 1) {
@@ -63,6 +64,7 @@ function SignPayment(
     if (!walletProvider) {
       return;
     }
+
     const ethersProvider = new BrowserProvider(walletProvider)
     const signer = await ethersProvider.getSigner()
     const sender = await signer.getAddress()
@@ -70,6 +72,28 @@ function SignPayment(
     const allowance = await contract.allowance(sender, domain.verifyingContract);
     setAllowance(allowance)
   }
+
+  async function balanceCheck() {
+    if (!isConnected) {
+      setBalance(0n)
+      return;
+    }
+    if (!walletProvider) {
+      setBalance(0n)
+      return;
+    }
+    
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    const sender = await signer.getAddress()
+    const contract = new Contract(token, ['function balanceOf(address) external view returns (uint256)'], signer)
+    const balance = await contract.balanceOf(sender);
+
+    setBalance(balance)
+  }
+
+
+
 
   async function approve() {
     if (!isConnected) {
@@ -166,16 +190,37 @@ function SignPayment(
   }
   return (
     <div>
+        <Text type='info'>Balance: {parseFloat(balance.toString() / 10 ** 18).toLocaleString(`en-US`,{
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 18
+        })} WETH</Text>
       <Space
         direction='vertical'
       >
         <Text type='danger'>0.0000003 WETH will be charged as fee to protect against spam</Text>
+       
         <Input
           placeholder="Receiver"
           style={{ width: 474 }}
           onChange={(e) => setReceiver(e.target.value)}
         />
         {
+          balance <= 0 ? 
+          <Button
+          onClick={() => { 
+
+            if(isConnected) {
+              toast.error('Insufficient WETH balance');
+            }else {
+              toast.error('Please connect your wallet first');
+            }
+          }}
+          style={{ width: 474 }}
+        >
+          {name}
+        </Button>
+          
+          :
           allowance < parseEther("0.00002") ?
             <Button
               onClick={approve}
